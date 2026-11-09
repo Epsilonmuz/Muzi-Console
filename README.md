@@ -1,5 +1,15 @@
 # Muzi Console v0.1
 
+![Muzi Console after a listen: what it heard, the target, the suggested EQ and the predicted result](docs/muzi-console-v0.1-suggested.png)
+
+![Listen, read the moves, apply: the engineer at work](docs/listen-suggest-apply.gif)
+
+**Manual:** [illustrated PDF](docs/Muzi-Console-v0.1-Manual.pdf) · [quick text version](docs/MANUAL.md) · [annotated panel tour](docs/panel-tour-annotated.png)
+
+| Channel mode, after APPLY | Bus mode on a mix |
+| --- | --- |
+| ![Channel mode](docs/muzi-console-v0.1.png) | ![Bus mode with the ±2 dB guard and glue compressor](docs/muzi-console-v0.1-bus.png) |
+
 A console strip with a listening engineer. One plugin, two jobs:
 
 - **CHANNEL**: for one track. Trim, high/low-pass filters, a four-band console EQ, compressor, gate/expander and drive.
@@ -8,7 +18,7 @@ A console strip with a listening engineer. One plugin, two jobs:
 The EQ has two curve flavours. They're inspired by the classic British console EQs, not copies of any unit:
 
 - **E**: bell width stays the same at any gain. Gentle shelves.
-- **G**: bells narrow as you boost (proportional Q), so small moves are broad and big moves are focused. Shelves carry a small opposite bump below the turnover.
+- **G**: bells narrow as you boost (proportional Q), so small moves are broad and big moves are focused. Shelves are steeper, with a small opposite dip just inside the turnover.
 
 ## Open it (the usual way)
 
@@ -23,7 +33,7 @@ Alternatively, with CMake: `cmake -S . -B build -G Xcode && cmake --build build 
 
 1. Pick what's on the channel (Vocal, Kick, 808/Sub, Bass, Snare/Clap, Hats, Guitar, Keys/Synth, Sample/Loop, Mix Bus) and a genre (Neutral, Trap, Drill, R&B, Boom Bap, Pop).
 2. Press **LISTEN** and play the busiest part of the song. It stops by itself after 10 seconds of sound, or you can press STOP.
-3. The display shows what it heard (grey), the target with a ±3 dB tolerance tube (gold dashes), the suggested EQ (gold) and the predicted result (teal). Each move comes with a reason in the panel.
+3. The display shows what it heard (grey), the target with a ±3 dB tolerance tube (gold dashes), the suggested EQ (solid gold) and the predicted result (teal). Each move comes with a reason in the panel.
 4. Press **APPLY** to set it. **UNDO** puts every control back. Change the role or genre afterwards and it re-suggests from the same listen, so there's no need to listen again.
 
 How it decides:

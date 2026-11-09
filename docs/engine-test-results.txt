@@ -1,6 +1,6 @@
 EQ curves
 Engine
-  60 s stereo, all on + sweeping EQ: 428 ms (140x real time)
+  60 s stereo, all on + sweeping EQ: 524 ms (114x real time)
 Engineer
   Vocal - Neutral: 2 EQ moves
     - Trim +4.5 dB so the channel averages about -18 dBFS - the level the console is built around.

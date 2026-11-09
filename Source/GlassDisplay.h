@@ -75,11 +75,9 @@ public:
         }
         if (! ghost.isEmpty())
         {
-            juce::Path dashed;
-            const float dashes[] { 7.0f, 5.0f };
-            juce::PathStrokeType(2.0f).createDashedStroke(dashed, ghost, dashes, 2);
-            g.setColour(gold.withAlpha(0.75f));
-            g.fillPath(dashed);
+            // The suggested EQ: solid gold, so it reads apart from the dashed target.
+            g.setColour(gold.withAlpha(0.9f));
+            g.strokePath(ghost, juce::PathStrokeType(2.2f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         }
         if (! after.isEmpty())
         {
@@ -179,7 +177,7 @@ public:
                 legend.removeFromRight(12.0f);
             };
             item(lmf, previewing ? "after APPLY" : "after", false);
-            if (previewing) item(gold.withAlpha(0.75f), "suggested EQ", true);
+            if (previewing) item(gold.withAlpha(0.9f), "suggested EQ", false);
             item(gold, "target", true);
             item(muted, "heard", false);
         }

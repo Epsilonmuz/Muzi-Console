@@ -26,9 +26,13 @@ struct Pink
     }
 };
 
+float snapshotScale = 2.0f;           // docs images at 2x for sharp screenshots
+juce::Component* liveEditor = nullptr; // for the mid-listen frame
+juce::File liveDir;
+
 void save(juce::Component& c, const juce::File& file)
 {
-    const auto image = c.createComponentSnapshot(c.getLocalBounds(), true, 1.0f);
+    const auto image = c.createComponentSnapshot(c.getLocalBounds(), true, snapshotScale);
     file.deleteFile();
     juce::FileOutputStream out(file);
     juce::PNGImageFormat().writeImageToStream(image, out);
@@ -66,6 +70,11 @@ void listenToTestVocal(MuziConsoleAudioProcessor& p, float level, double boxDb, 
             buffer.setSample(1, i, level * x * static_cast<float>(env));
         }
         p.processBlock(buffer, midi);
+        if (block == 600 && liveEditor != nullptr)
+        {
+            pump(250);
+            save(*liveEditor, liveDir.getChildFile("muzi-console-listening.png"));
+        }
         std::this_thread::sleep_for(std::chrono::microseconds(1500));
         if (block % 20 == 0) pump(1);
     }
@@ -89,6 +98,8 @@ int main(int argc, char** argv)
     editor->setSize(MuziConsoleAudioProcessorEditor::baseWidth, MuziConsoleAudioProcessorEditor::baseHeight);
     pump(200);
     save(*editor, outDir.getChildFile("muzi-console-idle.png"));
+    liveEditor = editor.get();
+    liveDir = outDir;
 
     listenToTestVocal(processor, 0.12f, 7.0, 6.0, false);
     const auto sug = processor.suggestion();
@@ -110,6 +121,7 @@ int main(int argc, char** argv)
     }
 
     // Bus mode on a "mix"
+    liveEditor = nullptr;
     processor.undoSuggestion();
     if (auto* m = processor.params.getParameter(muzi::pid::mode)) m->setValueNotifyingHost(1.0f);
     processor.setRoleAndGenre(muzi::Role::mixBus, muzi::Genre::trap);
