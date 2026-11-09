@@ -3,6 +3,7 @@
 // Muzi Console look: palette, typeface and the LookAndFeel (knobs, buttons, combo boxes).
 
 #include "PluginProcessor.h"
+#include "../Shared/epsilon_ui/EpsilonHeader.h"
 
 #include <BinaryData.h>
 
@@ -10,22 +11,24 @@ namespace muziui
 {
 namespace palette
 {
-inline const juce::Colour background { 0xff0c0d10 };
-inline const juce::Colour panel      { 0xff15171c };
-inline const juce::Colour panelHi    { 0xff1b1e24 };
-inline const juce::Colour glass      { 0xff08090c };
-inline const juce::Colour edge       { 0xff272b33 };
-inline const juce::Colour text       { 0xfff3f0e8 };
-inline const juce::Colour muted      { 0xff9c9a93 };
-inline const juce::Colour dim        { 0xff5a5c62 };
-inline const juce::Colour gold       { 0xffffc857 };   // brand + the engineer
+// Epsilon Sounds design system v1 (Muzi tier). Band colours stay: they identify the EQ bands.
+inline const epsilon_ui::Palette brand = epsilon_ui::palette (epsilon_ui::Tier::Muzi);
+inline const juce::Colour background = brand.bg;
+inline const juce::Colour panel      = brand.surface;
+inline const juce::Colour panelHi    = brand.raised;
+inline const juce::Colour glass      = brand.bg.darker (0.3f);
+inline const juce::Colour edge       = brand.line;
+inline const juce::Colour text       = brand.ink;
+inline const juce::Colour muted      = brand.inkMuted;
+inline const juce::Colour dim        = epsilon_ui::faint (brand);
+inline const juce::Colour gold       = brand.live;   // brand + the engineer
 inline const juce::Colour lf         { 0xffff9f43 };
 inline const juce::Colour lmf        { 0xff2ed3b7 };
 inline const juce::Colour hmf        { 0xff9b8cff };
 inline const juce::Colour hf         { 0xffff5e78 };
 inline const juce::Colour filter     { 0xff7aa7ff };
 inline const juce::Colour dyn        { 0xffc6f36b };
-inline const juce::Colour hot        { 0xffff4d4d };
+inline const juce::Colour hot        = brand.meterClip;
 }
 
 enum class Weight { medium, semibold, bold };
