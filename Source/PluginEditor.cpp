@@ -66,7 +66,7 @@ public:
         g.fillAll(background);
 
         // Epsilon Sounds product mark (shared design system)
-        epsilon_ui::drawProductMark(g, { 18.0f, 13.0f }, 1.0f, epsilon_ui::Tier::Muzi, "Console", "Channel and bus",
+        epsilon_ui::drawProductMark(g, { 18.0f, 13.0f }, 1.0f, epsilon_ui::Tier::Muzi, "Console", {},
                                     [](float h, bool b) { return font(h, b ? Weight::bold : Weight::semibold); });
         g.setFont(font(12.0f, Weight::bold));
         g.setColour(dim);
