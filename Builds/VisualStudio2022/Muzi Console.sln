@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio Version 17
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Muzi Console - Standalone Plugin", "Muzi Console_StandalonePlugin.vcxproj", "{984B0A69-6FBC-FF5F-B47E-BF40ABE5FBEC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC} = {D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Muzi Console - VST3", "Muzi Console_VST3.vcxproj", "{BE2D7719-2C0C-9784-08DA-9BA865F4E060}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC} = {D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}
+		{00B77AFC-0B51-145A-DE15-0595393861F9} = {00B77AFC-0B51-145A-DE15-0595393861F9}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Muzi Console - Shared Code", "Muzi Console_SharedCode.vcxproj", "{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Muzi Console - VST3 Manifest Helper", "Muzi Console_VST3ManifestHelper.vcxproj", "{00B77AFC-0B51-145A-DE15-0595393861F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE2D7719-2C0C-9784-08DA-9BA865F4E060}.Debug|x64.ActiveCfg = Debug|x64
+		{BE2D7719-2C0C-9784-08DA-9BA865F4E060}.Debug|x64.Build.0 = Debug|x64
+		{BE2D7719-2C0C-9784-08DA-9BA865F4E060}.Release|x64.ActiveCfg = Release|x64
+		{BE2D7719-2C0C-9784-08DA-9BA865F4E060}.Release|x64.Build.0 = Release|x64
+		{984B0A69-6FBC-FF5F-B47E-BF40ABE5FBEC}.Debug|x64.ActiveCfg = Debug|x64
+		{984B0A69-6FBC-FF5F-B47E-BF40ABE5FBEC}.Debug|x64.Build.0 = Debug|x64
+		{984B0A69-6FBC-FF5F-B47E-BF40ABE5FBEC}.Release|x64.ActiveCfg = Release|x64
+		{984B0A69-6FBC-FF5F-B47E-BF40ABE5FBEC}.Release|x64.Build.0 = Release|x64
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}.Debug|x64.ActiveCfg = Debug|x64
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}.Debug|x64.Build.0 = Debug|x64
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}.Release|x64.ActiveCfg = Release|x64
+		{D95CA2E0-B903-4D2F-47BF-5EFBEFE401EC}.Release|x64.Build.0 = Release|x64
+		{00B77AFC-0B51-145A-DE15-0595393861F9}.Debug|x64.ActiveCfg = Debug|Win32
+		{00B77AFC-0B51-145A-DE15-0595393861F9}.Debug|x64.Build.0 = Debug|Win32
+		{00B77AFC-0B51-145A-DE15-0595393861F9}.Release|x64.ActiveCfg = Release|Win32
+		{00B77AFC-0B51-145A-DE15-0595393861F9}.Release|x64.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

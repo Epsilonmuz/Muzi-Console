@@ -1,0 +1,7 @@
+build/
+Builds/MacOSX/build/
+Builds/LinuxMakefile/build/
+Builds/VisualStudio2022/x64/
+*.xcuserstate
+xcuserdata/
+.DS_Store

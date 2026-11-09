@@ -1,0 +1,70 @@
+name: Build Muzi Console (macOS)
+
+# Manual or on version tags only, to save macOS minutes.
+on:
+  workflow_dispatch:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  mac:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode builds must be optimised (Debug included)
+        run: |
+          if grep -q 'GCC_OPTIMIZATION_LEVEL = 0' "Builds/MacOSX/Muzi Console.xcodeproj/project.pbxproj"; then
+            echo "An Xcode configuration is -O0: the plugin will stutter. Set optimisation to 3 in the .jucer." && exit 1
+          fi
+
+      - name: Get JUCE 9.0.5
+        run: |
+          if [ ! -f JUCE/CMakeLists.txt ]; then
+            git clone --depth 1 --branch 9.0.5 https://github.com/juce-framework/JUCE.git JUCE
+          fi
+
+      - name: Configure (universal, macOS 12.0)
+        run: cmake -S . -B build -G Xcode -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0
+
+      - name: Build VST3, AU, Standalone and tests
+        run: cmake --build build --config Release --target MuziConsole_VST3 MuziConsole_AU MuziConsole_Standalone MuziEngineTests -- -quiet
+
+      - name: Engine + engineer tests
+        run: (cd build && ctest -C Release --output-on-failure)
+
+      - name: auval (Audio Unit validation)
+        run: |
+          mkdir -p ~/Library/Audio/Plug-Ins/Components
+          cp -R "$(find build -type d -name 'Muzi Console.component' | head -1)" ~/Library/Audio/Plug-Ins/Components/
+          killall -9 AudioComponentRegistrar 2>/dev/null || true
+          auval -v aufx MzCn Muzi
+
+      - name: pluginval (strictness 5)
+        run: |
+          curl -sSL -o pluginval.zip https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_macOS.zip
+          unzip -q pluginval.zip
+          VST3=$(find build -type d -name "Muzi Console.vst3" | head -1)
+          ./pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --sample-rates 44100,48000 --validate-in-process --skip-gui-tests "$VST3"
+
+      - name: Package
+        run: |
+          mkdir -p out
+          cp -R "$(find build -type d -name 'Muzi Console.vst3' | head -1)" out/
+          cp -R "$(find build -type d -name 'Muzi Console.component' | head -1)" out/
+          cp -R "$(find build -type d -name 'Muzi Console.app' | head -1)" out/
+          cat > out/INSTALL.txt <<'TXT'
+          Muzi Console v0.1 (unsigned test build)
+          1. Copy "Muzi Console.vst3" to ~/Library/Audio/Plug-Ins/VST3/
+             and "Muzi Console.component" to ~/Library/Audio/Plug-Ins/Components/
+          2. This build is not notarised. Remove the download quarantine in Terminal:
+             xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/"Muzi Console.vst3"
+             xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/Components/"Muzi Console.component"
+          3. FL Studio: Options > Manage plugins > Find installed plugins.
+          TXT
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Muzi-Console-v0.1-macOS
+          path: out

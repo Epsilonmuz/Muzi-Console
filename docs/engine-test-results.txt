@@ -1,0 +1,23 @@
+EQ curves
+Engine
+  60 s stereo, all on + sweeping EQ: 428 ms (140x real time)
+Engineer
+  Vocal - Neutral: 2 EQ moves
+    - Trim +4.5 dB so the channel averages about -18 dBFS - the level the console is built around.
+    - High-pass at 80 Hz - clears rumble that isn't part of this sound.
+    - LMF -5.5 dB at 405 Hz - cuts the boxiness sitting above target.
+    - HF -3.5 dB shelf at 8 kHz - the top is brighter than the target.
+    - Comp 4:1 at -15.5 dB - about 5 dB of gain reduction on the loud parts; 3 ms attack keeps the front of each hit.
+  Mix Bus - Trap: 4 EQ moves
+    - No high-pass - the sub is the point here.
+    - LF +2.0 dB at 45 Hz (shelf) - adds the weight this mix is missing.
+    - LMF -2.0 dB at 340 Hz - cuts the mud sitting above target.
+    - HMF -2.0 dB at 6.9 kHz - a focused cut on the harsh spot.
+    - HF -2.0 dB shelf at 8 kHz - the top is brighter than the target.
+    - Around 45 Hz the mix wants +5.5 dB - too much for a bus. Fix it at the source: likely the 808 or kick. (Bus move held to +2.0 dB.)
+    - Around 340 Hz the mix wants -6.0 dB - too much for a bus. Fix it at the source: likely bass, keys or samples in the low-mids. (Bus move held to -2.0 dB.)
+    - Around 6.9 kHz the mix wants -3.0 dB - too much for a bus. Fix it at the source: likely the hats and cymbals. (Bus move held to -2.0 dB.)
+    - Around 8.0 kHz the mix wants -6.0 dB - too much for a bus. Fix it at the source: likely the hats and cymbals. (Bus move held to -2.0 dB.)
+    - Bus comp 4:1 at -12.0 dB for about 2 dB of glue. 30 ms attack lets the drums punch through, auto release follows the groove; sidechain high-pass so the sub doesn't pump the mix.
+
+43 checks, 0 failed
