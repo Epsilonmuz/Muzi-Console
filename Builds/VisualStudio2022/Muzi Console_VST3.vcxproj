@@ -220,6 +220,9 @@ echo &quot;running &quot;$(SolutionDir)Win32\$(Configuration)\VST3 Manifest Help
     <ClInclude Include="..\..\JUCE\modules\juce_audio_plugin_client\VST3\juce_VST3ModuleInfo.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".\icon.ico"/>
+  </ItemGroup>
+  <ItemGroup>
     <ResourceCompile Include=".\resources.rc"/>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>

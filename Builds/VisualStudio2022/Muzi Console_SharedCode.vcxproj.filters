@@ -9875,16 +9875,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Resources\BarlowSemiCondensed-Medium.ttf">
+    <None Include="..\..\Resources\AppIcon.png">
       <Filter>Muzi Console\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\BarlowSemiCondensed-SemiBold.ttf">
+    <None Include="..\..\Resources\EpsilonDial-Regular.ttf">
       <Filter>Muzi Console\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\BarlowSemiCondensed-Bold.ttf">
+    <None Include="..\..\Resources\EpsilonDial-Bold.ttf">
       <Filter>Muzi Console\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\Barlow-OFL.txt">
+    <None Include="..\..\Resources\EpsilonDial-LICENSE.txt">
       <Filter>Muzi Console\Resources</Filter>
     </None>
     <None Include="..\..\JUCE\modules\juce_audio_devices\native\asio\LICENSE.txt">
@@ -10012,6 +10012,9 @@
     </None>
     <None Include="..\..\JUCE\modules\juce_gui_extra\native\typescript\webview-interop\README.md">
       <Filter>JUCE Modules\juce_gui_extra\native\typescript\webview-interop</Filter>
+    </None>
+    <None Include=".\icon.ico">
+      <Filter>JUCE Library Code</Filter>
     </None>
   </ItemGroup>
 </Project>

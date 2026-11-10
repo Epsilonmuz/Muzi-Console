@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="MzCn01" name="Muzi Console" projectType="audioplug" version="0.1.0"
-              companyName="Muzi" bundleIdentifier="com.muzi.console"
-              pluginName="Muzi Console" pluginDesc="Console strip with a listening engineer"
-              pluginManufacturer="Muzi" pluginManufacturerCode="Muzi"
-              pluginCode="MzCn" pluginFormats="buildVST3,buildAU,buildStandalone"
+              companyName="Muzi" bundleIdentifier="com.muzi.console" pluginName="Muzi Console"
+              pluginDesc="Console strip with a listening engineer" pluginManufacturer="Muzi"
+              pluginManufacturerCode="Muzi" pluginCode="MzCn" pluginFormats="buildVST3,buildAU,buildStandalone"
               pluginVST3Category="Fx|EQ|Dynamics" pluginAUMainType="'aufx'"
-              cppLanguageStandard="17" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              cppLanguageStandard="17" useAppConfig="0" addUsingNamespaceToJuceHeader="0"
+              jucerFormatVersion="1">
   <MAINGROUP id="MzGrp1" name="Muzi Console">
     <GROUP id="MzSrc1" name="Source">
       <FILE id="MzF001" name="ParamIDs.h" compile="0" resource="0" file="Source/ParamIDs.h"/>
@@ -18,20 +17,26 @@
       <FILE id="MzF006" name="MuziUI.h" compile="0" resource="0" file="Source/MuziUI.h"/>
       <FILE id="MzF007" name="ConsoleParts.h" compile="0" resource="0" file="Source/ConsoleParts.h"/>
       <FILE id="MzF008" name="GlassDisplay.h" compile="0" resource="0" file="Source/GlassDisplay.h"/>
-      <FILE id="MzF009" name="PluginEditor.cpp" compile="1" resource="0" file="Source/PluginEditor.cpp"/>
+      <FILE id="MzF009" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
       <FILE id="MzF010" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="MzF011" name="PluginProcessor.cpp" compile="1" resource="0" file="Source/PluginProcessor.cpp"/>
-      <FILE id="MzF012" name="PluginProcessor.h" compile="0" resource="0" file="Source/PluginProcessor.h"/>
+      <FILE id="MzF011" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="MzF012" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
     </GROUP>
     <GROUP id="MzRes1" name="Resources">
-      <FILE id="MzR001" name="BarlowSemiCondensed-Medium.ttf" compile="0" resource="1" file="Resources/BarlowSemiCondensed-Medium.ttf"/>
-      <FILE id="MzR002" name="BarlowSemiCondensed-SemiBold.ttf" compile="0" resource="1" file="Resources/BarlowSemiCondensed-SemiBold.ttf"/>
-      <FILE id="MzR003" name="BarlowSemiCondensed-Bold.ttf" compile="0" resource="1" file="Resources/BarlowSemiCondensed-Bold.ttf"/>
-      <FILE id="MzR004" name="Barlow-OFL.txt" compile="0" resource="0" file="Resources/Barlow-OFL.txt"/>
+      <FILE id="EpsIcn" name="AppIcon.png" compile="0" resource="0" file="Resources/AppIcon.png"/>
+      <FILE id="MzR001" name="EpsilonDial-Regular.ttf" compile="0" resource="1"
+            file="Resources/EpsilonDial-Regular.ttf"/>
+      <FILE id="MzR003" name="EpsilonDial-Bold.ttf" compile="0" resource="1"
+            file="Resources/EpsilonDial-Bold.ttf"/>
+      <FILE id="MzR004" name="EpsilonDial-LICENSE.txt" compile="0" resource="0"
+            file="Resources/EpsilonDial-LICENSE.txt"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="EpsIcn">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="3" targetName="Muzi Console"
                        osxArchitecture="Native" macOSDeploymentTarget="12.0" enablePluginBinaryCopyStep="1"
@@ -58,7 +63,7 @@
         <MODULEPATH id="juce_gui_extra" path="JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2022 targetFolder="Builds/VisualStudio2022">
+    <VS2022 targetFolder="Builds/VisualStudio2022" bigIcon="EpsIcn">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="3" targetName="Muzi Console"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Muzi Console"/>
@@ -80,7 +85,7 @@
         <MODULEPATH id="juce_gui_extra" path="JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" bigIcon="EpsIcn">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="3" targetName="Muzi Console"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Muzi Console"/>

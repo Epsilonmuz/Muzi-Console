@@ -26,13 +26,13 @@ juce_add_plugin(MuziConsole
     AU_MAIN_TYPE kAudioUnitType_Effect
     FORMATS ${muzi_formats}
     PRODUCT_NAME "Muzi Console"
+    ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/Resources/AppIcon.png"
     DESCRIPTION "Console strip with a listening engineer"
 )
 juce_generate_juce_header(MuziConsole)
 juce_add_binary_data(MuziAssets SOURCES
-    Resources/BarlowSemiCondensed-Medium.ttf
-    Resources/BarlowSemiCondensed-SemiBold.ttf
-    Resources/BarlowSemiCondensed-Bold.ttf
+    Resources/EpsilonDial-Regular.ttf
+    Resources/EpsilonDial-Bold.ttf
 )
 set_target_properties(MuziAssets PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_sources(MuziConsole PRIVATE
