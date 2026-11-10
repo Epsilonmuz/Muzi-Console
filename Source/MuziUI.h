@@ -4,6 +4,7 @@
 
 #include "PluginProcessor.h"
 #include "../Shared/epsilon_ui/EpsilonHeader.h"
+#include "../Shared/epsilon_ui/EpsilonSignature.h"
 
 #include <BinaryData.h>
 
@@ -91,63 +92,12 @@ public:
         return font(f.getHeight(), f.isBold() ? Weight::bold : Weight::medium).getTypefacePtr();
     }
 
+    // Epsilon Sounds signature coin-edge knob (static layers cached)
     void drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height,
-                          float value, float start, float end, juce::Slider& slider) override
+                          float value, float, float, juce::Slider& slider) override
     {
-        using namespace palette;
-        const auto bounds = juce::Rectangle<float>(static_cast<float>(x), static_cast<float>(y),
-                                                   static_cast<float>(width), static_cast<float>(height));
-        const auto radius = juce::jmin(bounds.getWidth(), bounds.getHeight()) * 0.5f - 3.0f;
-        if (radius <= 4.0f)
-            return;
-        const auto centre = bounds.getCentre();
-        const auto& props = slider.getProperties();
-        const auto bipolar = static_cast<bool>(props["bipolar"]);
-        const auto fromEnd = static_cast<bool>(props["fromEnd"]); // thresholds: the arc grows as the threshold drops
-        const auto accent = props.contains("accent") ? juce::Colour(static_cast<juce::uint32>(static_cast<juce::int64>(props["accent"]))) : text;
-        const auto enabled = slider.isEnabled();
-        const auto angle = start + value * (end - start);
-        const auto from = bipolar ? (start + end) * 0.5f : fromEnd ? end : start;
-        const auto live = enabled && (bipolar ? std::abs(value - 0.5f) > 0.004f : fromEnd ? value < 0.996f : value > 0.004f);
-        const auto ring = radius - 1.5f;
-
-        juce::Path rail, active;
-        rail.addCentredArc(centre.x, centre.y, ring, ring, 0.0f, start, end, true);
-        active.addCentredArc(centre.x, centre.y, ring, ring, 0.0f, juce::jmin(from, angle), juce::jmax(from, angle), true);
-        const juce::PathStrokeType stroke(2.6f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded);
-        g.setColour(edge);
-        g.strokePath(rail, stroke);
-        if (live)
-        {
-            g.setColour((bipolar ? accent : accent.withMultipliedSaturation(0.35f).withMultipliedBrightness(0.85f)));
-            g.strokePath(active, stroke);
-        }
-        if (bipolar)
-        {
-            const auto top = centre.getPointOnCircumference(ring + 3.5f, (start + end) * 0.5f);
-            g.setColour(dim);
-            g.fillEllipse(juce::Rectangle<float>(2.4f, 2.4f).withCentre(top));
-        }
-
-        // Cap: a dark machined puck with a light catch
-        const auto capR = ring - 6.0f;
-        const auto cap = juce::Rectangle<float>(capR * 2.0f, capR * 2.0f).withCentre(centre);
-        g.setColour(juce::Colours::black.withAlpha(0.55f));
-        g.fillEllipse(cap.translated(0.0f, 2.5f).expanded(1.0f));
-        g.setGradientFill(juce::ColourGradient(juce::Colour(0xff30333a), cap.getX(), cap.getY(),
-                                               juce::Colour(0xff121317), cap.getRight(), cap.getBottom(), false));
-        g.fillEllipse(cap);
-        g.setColour(juce::Colours::white.withAlpha(0.07f));
-        juce::Path catchLight;
-        catchLight.addCentredArc(centre.x, centre.y, capR - 1.0f, capR - 1.0f, 0.0f, -2.2f, 0.6f, true);
-        g.strokePath(catchLight, juce::PathStrokeType(1.2f));
-        g.setColour(edge.brighter(0.25f));
-        g.drawEllipse(cap, 1.0f);
-
-        const auto p0 = centre.getPointOnCircumference(capR * 0.3f, angle);
-        const auto p1 = centre.getPointOnCircumference(capR * 0.9f, angle);
-        g.setColour(enabled ? (live && bipolar ? accent : text) : dim);
-        g.drawLine(juce::Line<float>(p0, p1), 2.2f);
+        epsilon_ui::signature::knob(g, juce::Rectangle<float>((float) x, (float) y, (float) width, (float) height).reduced(4.0f),
+                                    value, slider, epsilon_ui::Tier::Muzi);
     }
 
     juce::Label* createSliderTextBox(juce::Slider& slider) override
@@ -186,18 +136,10 @@ public:
     juce::Font getTextButtonFont(juce::TextButton&, int) override { return font(14.0f, Weight::bold); }
 
     // Toggle buttons light in their "accent" colour when on; plain buttons are flat panels.
-    void drawButtonBackground(juce::Graphics& g, juce::Button& b, const juce::Colour&, bool over, bool down) override
+    // Epsilon Sounds signature keycap; toggles carry the champagne lume bar when on
+    void drawButtonBackground(juce::Graphics& g, juce::Button& button, const juce::Colour&, bool over, bool down) override
     {
-        using namespace palette;
-        const auto area = b.getLocalBounds().toFloat().reduced(0.5f);
-        const auto accent = b.getProperties().contains("accent")
-                              ? juce::Colour(static_cast<juce::uint32>(static_cast<juce::int64>(b.getProperties()["accent"]))) : gold;
-        const auto on = b.getToggleState();
-        const auto radius = juce::jmin(6.0f, area.getHeight() * 0.5f);
-        g.setColour(on ? accent.withAlpha(0.18f) : (down ? edge : glass));
-        g.fillRoundedRectangle(area, radius);
-        g.setColour(on ? accent.withAlpha(0.9f) : (over ? dim : edge));
-        g.drawRoundedRectangle(area, radius, 1.0f);
+        epsilon_ui::signature::keycap(g, button, over, down, epsilon_ui::Tier::Muzi);
     }
 
     void drawButtonText(juce::Graphics& g, juce::TextButton& b, bool, bool) override
@@ -205,9 +147,11 @@ public:
         using namespace palette;
         const auto accent = b.getProperties().contains("accent")
                               ? juce::Colour(static_cast<juce::uint32>(static_cast<juce::int64>(b.getProperties()["accent"]))) : gold;
-        g.setFont(font(juce::jmin(15.0f, static_cast<float>(b.getHeight()) * 0.6f), Weight::bold));
+        g.setFont(font(juce::jmin(15.0f, static_cast<float>(b.getHeight()) * 0.52f), Weight::bold));
         g.setColour(! b.isEnabled() ? dim : b.getToggleState() ? accent : muted);
-        g.drawFittedText(b.getButtonText(), b.getLocalBounds().reduced(4, 0), juce::Justification::centred, 1);
+        // toggles leave room for the keycap's lume bar
+        const bool toggle = b.getClickingTogglesState() || b.getToggleState();
+        g.drawFittedText(b.getButtonText(), b.getLocalBounds().reduced(4, 0).withTrimmedBottom(toggle ? 5 : 0), juce::Justification::centred, 1);
     }
 
     void drawScrollbar(juce::Graphics& g, juce::ScrollBar&, int x, int y, int w, int h, bool vertical,
