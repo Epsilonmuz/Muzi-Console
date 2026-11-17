@@ -4,11 +4,14 @@ name: Build Muzi Console (macOS)
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]   # every push to main builds and refreshes the installer
     tags: [ 'v*' ]
 
 jobs:
   mac:
     runs-on: macos-15
+    permissions:
+      contents: write
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -68,3 +71,17 @@ jobs:
         with:
           name: Muzi-Console-v0.1-macOS
           path: out
+
+      - name: Installer (puts the VST3, AU and app in the right folders)
+        run: bash .github/scripts/make-mac-installer.sh "Muzi Console" "out"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Muzi-Console-macOS-Installer
+          path: installer/*.pkg
+
+      - name: Publish the installer to the "latest" release (main only)
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/publish-latest.sh "Muzi Console" installer/*.pkg

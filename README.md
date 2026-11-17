@@ -2,6 +2,11 @@
 
 ![Muzi Console after a listen: what it heard, the target, the suggested EQ and the predicted result](docs/muzi-console-v0.1-suggested.png)
 
+## Install (no build needed)
+
+**Mac (Intel and Apple Silicon):** download [Muzi Console for Mac](https://github.com/Epsilonmuz/Muzi-Console/releases/latest/download/Muzi-Console-macOS-Installer.pkg). Double-click it: the VST3 goes to `/Library/Audio/Plug-Ins/VST3`, the Audio Unit to `/Library/Audio/Plug-Ins/Components` and the standalone app to Applications. Then rescan in your DAW (FL Studio: Options > Manage plugins > Find installed plugins). The first time, macOS may say it can't check the installer (it isn't notarised by Apple): click Done, then System Settings > Privacy & Security > **Open Anyway**. No Terminal commands needed. The link always gives the newest build of `main`; it is rebuilt, test-installed on GitHub's Mac and replaced on every push.
+
+
 ![Listen, read the moves, apply: the engineer at work](docs/listen-suggest-apply.gif)
 
 **Manual:** [illustrated PDF](docs/Muzi-Console-v0.1-Manual.pdf) · [quick text version](docs/MANUAL.md) · [annotated panel tour](docs/panel-tour-annotated.png)
